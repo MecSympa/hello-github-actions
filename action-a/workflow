@@ -1,3 +1,2 @@
-#!/bin/sh -l
-
-sh -c "echo Hello world my name is $INPUT_MY_NAME"
+name: A workflow for my Hello World file
+on: push
