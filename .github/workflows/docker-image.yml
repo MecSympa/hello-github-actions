@@ -21,7 +21,7 @@ jobs:
       run:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD   
         
-    - uses: action/checkout@v2
+
     - name: Build the Docker image
       run: docker build . --file hello-github-actions/action-a/Dockerfile --tag testgitHub:$(git log --format="%H" -n 1)
 
