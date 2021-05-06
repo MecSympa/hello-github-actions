@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
+    step:
     - uses: actions/checkout@v2
     - name: docker login
       env:
@@ -20,7 +20,9 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    steps:    
       -name: Build the Docker image
-       run: docker build . --file hello-github-actions/action-a/Dockerfile --tag ${{secrets.DOCKER_TAG}}:$(date)
+       run: docker build . --file hello-github-actions/action-a/Dockerfile --tag testgitHub:${{secrets.DOCKER_TAG}}:$(date + %s)
+    step:  
       -name: Docker push
        run: docker push ${{secrets.DOCKER_TAG}}:$(date)
