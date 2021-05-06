@@ -12,17 +12,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    step:
+    steps:
     - uses: actions/checkout@v2
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run:
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    steps:    
-      -name: Build the Docker image
-       run: docker build . --file hello-github-actions/action-a/Dockerfile --tag testgitHub:${{secrets.DOCKER_TAG}}:$(date + %s)
-    step:  
-      -name: Docker push
-       run: docker push ${{secrets.DOCKER_TAG}}:$(date)
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD   
+        
+    - uses: action/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file action-a/Dockerfile --tag testgitHub:${{secrets.DOCKER_TAG}}:$(date + %s)
+
+    - name: docker push
+      run: docker push ${{secrets.DOCKER_TAG}}:$(date)
