@@ -23,7 +23,7 @@ jobs:
         
     - uses: action/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file hello-github-actions/action-a/Dockerfile --tag testgitHub:${{secrets.DOCKER_TAG}}:$(date + %s)
+      run: docker build . --file hello-github-actions/action-a/Dockerfile --tag testgitHub:$(git log --format="%H" -n 1)
 
     - name: docker push
-      run: docker push ${{secrets.DOCKER_TAG}}:$(date)
+      run: docker push testgitHub:$(git log --format="%H" -n 1)
